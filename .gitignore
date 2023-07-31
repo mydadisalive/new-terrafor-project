@@ -3,8 +3,8 @@ mykey
 mykey.pub
 
 # Terraform state files
-*.tfstate
-*.tfstate.backup
+#*.tfstate
+#*.tfstate.backup
 
 # Ignore IP addresses output file
 ip_addresses.txt
