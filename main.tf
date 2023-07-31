@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "example_instance" {
-  ami           = "ami-0f34c5ae932e6f0e4" # Replace with your desired AMI ID
+  ami           = "ami-0f34c5ae932e6f0e4" # Replace with your desired AMI ID 
   instance_type = "t3.micro"              # Replace with your desired instance type
 
   # Associate the key pair with the EC2 instance
