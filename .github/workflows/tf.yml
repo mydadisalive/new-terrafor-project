@@ -32,11 +32,11 @@ jobs:
 
       - name: Set Up Terraform Variables
         run: |
-          echo "$PRIVATE_KEY" > my-keypair.pem # Save the private key to a file
+          echo "$PRIVATE_KEY" > my-keypair # Save the private key to a file
           export TF_VAR_public_key_content=$(cat my-keypair.pub) # Load public key content
-          export TF_VAR_private_key_content=$(cat my-keypair.pem) # Load private key content
-          echo "public_key_content=$TF_VAR_public_key_content" >> $GITHUB_ENV # Export public key content as an environment variable
-          echo "private_key_content=$TF_VAR_private_key_content" >> $GITHUB_ENV # Export private key content as an environment variable
+          export TF_VAR_private_key_content=$(cat my-keypair) # Load private key content
+          #echo "public_key_content=$TF_VAR_public_key_content" >> $GITHUB_ENV # Export public key content as an environment variable
+          #echo "private_key_content=$TF_VAR_private_key_content" >> $GITHUB_ENV # Export private key content as an environment variable
 
       - name: Terraform Init # Initialize Terraform
         run: terraform init
