@@ -16,4 +16,4 @@ ip_addresses.txt
 .terraform.lock.hcl
 
 # Keys
-my-keypair*
+my-keypair
