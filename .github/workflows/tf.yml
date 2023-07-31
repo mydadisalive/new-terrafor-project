@@ -40,6 +40,9 @@ jobs:
 
       - name: Terraform Init # Initialize Terraform
         run: terraform init
+      
+      - name: Terraform Import
+        run: terraform import aws_key_pair.my_keypair my-keypair
 
       - name: Terraform Plan # Generate and show an execution plan
         run: terraform plan
