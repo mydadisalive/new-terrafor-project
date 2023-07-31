@@ -10,6 +10,9 @@ jobs:
     name: Deploy using Terraform 
     runs-on: ubuntu-latest # Use the latest version of Ubuntu as the runner for this job
 
+    env:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
     steps:
       - name: Checkout code # Checkout the code from the repository
         uses: actions/checkout@v2
@@ -26,6 +29,14 @@ jobs:
           curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
           echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
           sudo apt-get update && sudo apt-get install terraform
+
+      - name: Set Up Terraform Variables
+        run: |
+          echo "$PRIVATE_KEY" > my-keypair.pem # Save the private key to a file
+          export TF_VAR_public_key_content=$(cat my-keypair.pub) # Load public key content
+          export TF_VAR_private_key_content=$(cat my-keypair.pem) # Load private key content
+          echo "public_key_content=$TF_VAR_public_key_content" >> $GITHUB_ENV # Export public key content as an environment variable
+          echo "private_key_content=$TF_VAR_private_key_content" >> $GITHUB_ENV # Export private key content as an environment variable
 
       - name: Terraform Init # Initialize Terraform
         run: terraform init
